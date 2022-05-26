@@ -17,8 +17,8 @@ module Railstutorial6Sample
       app.routes_reloader.paths.delete_if {|path| path =~ /actionmailbox/}
     }
 
-
-     # app.routes_relaoder
+    # NOTE:
+    # app.routes_reloader
     # @paths=
     # ["/home/vagrant/workspace/railstutorial_app/config/routes.rb",
     # "/home/vagrant/.rbenv/versions/2.7.5/lib/ruby/gems/2.7.0/gems/turbo-rails-1.0.1/config/routes.rb",
@@ -37,7 +37,7 @@ module Railstutorial6Sample
     #   @eager_load = []
     # end
 
-    
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
