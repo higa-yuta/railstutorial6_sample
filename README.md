@@ -6,10 +6,10 @@
 [Michael Hartl](https://www.michaelhartl.com/) 著
 
 ## 環境
-**HostOS:**                 windows11
-**GestOS:**                 ubuntu/xenial64 16.04.7
-**Ruby version:**           2.7.5
-**Ruby on Rails version:**  6.1.4.7
+**HostOS:**                 windows11  
+**GestOS:**                 ubuntu/xenial64 16.04.7  
+**Ruby version:**           2.7.5  
+**Ruby on Rails version:**  6.1.4.7  
 
 ## ライセンス
 
