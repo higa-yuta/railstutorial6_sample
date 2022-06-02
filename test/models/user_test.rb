@@ -54,4 +54,10 @@ class UserTest < ActiveSupport::TestCase
     @user.save
     assert_not dup_user.valid?
   end
+
+  test "email addresses should be downcase before save" do
+    @user.email.upcase!
+    @user.save
+    assert_equal User.first.email, "okinawa@sample.com"
+  end
 end
