@@ -6,4 +6,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "title", "Sign up | #{@base_title}"
   end
+
+  # TODO: 他のアクションのテスト
 end

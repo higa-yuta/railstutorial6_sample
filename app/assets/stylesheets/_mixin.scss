@@ -4,3 +4,10 @@ $white-light: #fff;
 $gray-medium-light: #eaeaea;
 $gray-light: #777;
 
+// mixin
+@mixin box_sizing {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
