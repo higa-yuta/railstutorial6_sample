@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:success] = "登録が完了しました"
+      log_in(@user)
       redirect_to @user
     else
       flash[:danger] = @user.errors.full_messages
@@ -19,7 +20,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-
   end
 
   private

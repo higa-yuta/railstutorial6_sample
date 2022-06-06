@@ -30,6 +30,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_template "users/show"
     assert_select "h1", "okinawa taro"
     assert_select "div.alert-success", "登録が完了しました"
+    assert is_logged_in?
   end
   
 end

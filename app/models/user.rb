@@ -11,4 +11,29 @@ class User < ApplicationRecord
 
   has_secure_password
   validates :password, presence: true, length: {minimum: 6}
+
+  # returns a hash of the passed string
+  def User.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                  BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
+
+  # NOTE:
+  # self.min_cost = false
+  # 
+  # def min_cost
+  #   @min_cost
+  # end
+  # 
+  # true in test environment
+  # ActiveModel::Railtie
+  # initializer "active_model.secure_password" do
+  #   ActiveModel::SecurePassword.min_cost = Rails.env.test?
+  # end
+  # 
+  # BCrypt::Engine::MIN_COST = 4
+  # 
+  # https://naokirin.hatenablog.com/entry/2019/03/29/032801#has_secure_password-%E3%81%A8%E3%81%AF
+
 end

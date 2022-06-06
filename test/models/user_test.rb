@@ -3,7 +3,7 @@ require "test_helper"
 class UserTest < ActiveSupport::TestCase
   
   def setup
-    @user = User.new(name: "okinawa taro", email: 'okinawa@sample.com',
+    @user = User.new(name: "okinawa", email: 'okinawa@sample.com',
                      password: "foobar", password_confirmation: 'foobar')
   end
 
@@ -65,7 +65,7 @@ class UserTest < ActiveSupport::TestCase
   test "email addresses should be downcase before save" do
     @user.email.upcase!
     @user.save
-    assert_equal User.first.email, "okinawa@sample.com"
+    assert_equal User.find_by_name("okinawa").email, "okinawa@sample.com"
   end
 
   # PASSWORD
