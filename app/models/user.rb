@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  attr_accessor :remember_token
 
   before_save { email.downcase! }
 
@@ -12,28 +13,48 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: {minimum: 6}
 
-  # returns a hash of the passed string
-  def User.digest(string)
-    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
-                                                  BCrypt::Engine.cost
-    BCrypt::Password.create(string, cost: cost)
+  class << self
+    # returns a hash of the passed string
+    def digest(string)
+      cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                    BCrypt::Engine.cost
+      BCrypt::Password.create(string, cost: cost)
+    end
+
+    # NOTE:
+    # self.min_cost = false
+    # 
+    # def min_cost
+    #   @min_cost
+    # end
+    # 
+    # true in test environment
+    # ActiveModel::Railtie
+    # initializer "active_model.secure_password" do
+    #   ActiveModel::SecurePassword.min_cost = Rails.env.test?
+    # end
+    # 
+    # BCrypt::Engine::MIN_COST = 4
+    # https://naokirin.hatenablog.com/entry/2019/03/29/032801#has_secure_password-%E3%81%A8%E3%81%AF
+
+    # return random token
+    def new_token
+      SecureRandom.urlsafe_base64
+    end
   end
 
-  # NOTE:
-  # self.min_cost = false
-  # 
-  # def min_cost
-  #   @min_cost
-  # end
-  # 
-  # true in test environment
-  # ActiveModel::Railtie
-  # initializer "active_model.secure_password" do
-  #   ActiveModel::SecurePassword.min_cost = Rails.env.test?
-  # end
-  # 
-  # BCrypt::Engine::MIN_COST = 4
-  # 
-  # https://naokirin.hatenablog.com/entry/2019/03/29/032801#has_secure_password-%E3%81%A8%E3%81%AF
 
+  def remember
+    self.remember_token = User.new_token
+    update_attribute(:remember_digest, User.digest(remember_token))
+  end
+
+  def authenticated?(remember_token)
+    return false if remember_digest.nil?
+    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  end
+
+  def forget
+    update_attribute(:remember_digest, nil)
+  end
 end
