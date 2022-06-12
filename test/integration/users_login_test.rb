@@ -21,7 +21,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     post login_path, params: { session: { email: @user.email,
                                           password: 'password' }}
     assert_redirected_to user_path(@user)
-    assert is_logged_in?
+  assert is_logged_in?
     follow_redirect!
     assert_template 'users/show'
     assert_select 'a[href=?]', login_path, count: 0
@@ -59,9 +59,8 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
   test "login with remembering" do
     log_in_as(@user, remember_me: '1')
-    # binding.pry
     assert_not_empty cookies[:remember_token]
-    assert_equal @user.remember_token, assigns(:user).remember_token
+    assert_equal cookies[:remember_token], assigns(:user).remember_token
   end
 
   test "login without remembering" do
