@@ -10,7 +10,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                          password: 'ok',
                                          password_confirmation: 'ok' }}
     end
-    follow_redirect!
     assert_template 'users/new'
     assert_select "div#error_explanation" do
       assert_select "ul" do
