@@ -77,5 +77,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
   end
 
-  # TODO: 他のアクションのテスト[:show]
+  test "should redirect show when not logged in" do
+    get user_path(@user)
+    assert_redirected_to login_path
+  end
+
+  # TODO:
 end

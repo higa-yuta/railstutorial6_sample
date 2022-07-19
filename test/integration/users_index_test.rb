@@ -38,4 +38,12 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     assert_select 'a', text: 'delete', count: 0
   end
 
+  test "do not show if user is inactive" do
+    @non_admin.update_attribute(:activated, false)
+    assert_equal false, @non_admin.activated
+    log_in_as(@admin)
+    get users_path
+    assert_not assigns(:users).include?(@non_admin)
+  end
+
 end
